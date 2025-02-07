@@ -25,13 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Provider>
           <Navbar />
-          <main className="flex-1 mx-auto container max-w-screen-xl mt-14 px-4 py-8 bg-indigo-600">
+          <main className="flex-1 mx-auto container max-w-screen-xl mt-14 px-4 py-8">
             {children}
           </main>
         </Provider>

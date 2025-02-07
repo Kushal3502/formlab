@@ -11,27 +11,21 @@ import {
 import { handleSignOut } from "@/actions/authActions";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { Session } from "next-auth";
-import Image from "next/image";
 import Link from "next/link";
 
 function UserDropdown({ session }: { session: Session }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        {session?.user?.image ? (
-          <Image
-            src={session?.user?.image as string}
-            alt="user"
-            height={100}
-            width={100}
-            className="h-10 w-10 rounded-full"
+        <Avatar>
+          <AvatarImage
+            src={
+              (session?.user?.image as string) ||
+              "https://github.com/shadcn.png"
+            }
           />
-        ) : (
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-        )}
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="m-4 w-40">
         <DropdownMenuLabel>{session?.user?.name}</DropdownMenuLabel>
