@@ -25,17 +25,18 @@ import { Loader2, PlusCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Textarea } from "./ui/textarea";
+import { useRouter } from "next/navigation";
 
 function CreateFormButton() {
   return (
     <Dialog>
-      <DialogTrigger className="group flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 hover:border-slate-400 transition-colors h-48 w-full">
+      <DialogTrigger className="group flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 hover:border-slate-400 transition-colors md:h-48 h-32 w-full">
         <PlusCircle className="h-8 w-8 text-slate-500 group-hover:text-slate-600" />
         <p className="mt-2 font-medium text-slate-400 group-hover:text-slate-500">
           Create new form
         </p>
       </DialogTrigger>
-      <DialogContent >
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Create new form</DialogTitle>
           <DialogDescription>
@@ -50,6 +51,8 @@ function CreateFormButton() {
 export default CreateFormButton;
 
 function DialogFormComponent() {
+  const router = useRouter();
+
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,6 +66,8 @@ function DialogFormComponent() {
       const formId = await CreateForm(values);
 
       toast.success("New form created");
+
+      router.push(`/builder/${formId}`);
     } catch (error) {
       console.error("Error creating form:", error);
       toast.error("Error creating form");
@@ -93,7 +98,7 @@ function DialogFormComponent() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Description(Optional)</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Describe form content here"

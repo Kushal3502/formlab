@@ -7,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { handleSignOut } from "@/actions/authActions";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { Session } from "next-auth";
@@ -24,7 +23,9 @@ function UserDropdown({ session }: { session: Session }) {
               "https://github.com/shadcn.png"
             }
           />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>
+            {String(session.user?.name?.charAt(0).toUpperCase)}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="m-4 w-40">

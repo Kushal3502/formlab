@@ -72,6 +72,7 @@ model Form {
   submissions Int        @default(0)
   shareLink   String     @default("")
   isAccepting Boolean    @default(true)
+  isPublished Boolean    @default(false)
   responses   Response[]
 
   createdAt DateTime @default(now())
@@ -79,7 +80,7 @@ model Form {
 
   user User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
-  @@unique([ownerId,title])
+  @@unique([ownerId, title])
 }
 
 model Response {
