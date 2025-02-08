@@ -35,7 +35,7 @@ function CreateFormButton() {
           Create new form
         </p>
       </DialogTrigger>
-      <DialogContent className=" w-full text-left">
+      <DialogContent >
         <DialogHeader>
           <DialogTitle>Create new form</DialogTitle>
           <DialogDescription>
