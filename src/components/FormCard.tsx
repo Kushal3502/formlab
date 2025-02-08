@@ -11,7 +11,7 @@ import Link from "next/link";
 
 function FormCard({ data }: { data: Form }) {
   return (
-    <Link href={`/builder/${data.id}`}>
+    <Link href={`/view/${data.id}`}>
       <Card className="min-h-[160px] shadow-lg hover:shadow-xl cursor-pointer flex flex-col justify-between dark:bg-zinc-900 hover:scale-105 transition-all duration-300">
         <CardHeader>
           <CardTitle className="text-xl font-normal truncate">{data.title}</CardTitle>
