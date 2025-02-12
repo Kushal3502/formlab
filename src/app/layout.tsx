@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <Provider>
           <Navbar />
-          <main className="flex-1 mx-auto container max-w-screen-xl mt-14 px-4 py-8">
+          <main className="flex-1 mx-auto container max-w-screen-xl mt-10 px-4 py-8">
             {children}
           </main>
         </Provider>

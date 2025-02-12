@@ -16,7 +16,7 @@ function UserDropdown({ session }: { session: Session }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar>
+        <Avatar className="h-10 w-10">
           <AvatarImage
             src={
               (session?.user?.image as string) ||
