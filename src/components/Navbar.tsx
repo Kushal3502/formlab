@@ -6,6 +6,9 @@ import Logo from "./Logo";
 import ThemeSwitch from "./ThemeSwitch";
 import LoginButton from "./LoginButton";
 import UserDropdown from "./UserDropdown";
+import { Button } from "./ui/button";
+import { LayoutDashboard } from "lucide-react";
+import Link from "next/link";
 
 function Navbar() {
   const { data: session, status } = useSession();
@@ -15,6 +18,14 @@ function Navbar() {
       <Logo />
       <div className=" flex justify-center items-center gap-2">
         <ThemeSwitch />
+        {status === "authenticated" && (
+          <Button variant={"ghost"} size={"sm"} asChild>
+            <Link href={"/dashboard"}>
+              <LayoutDashboard />
+              Dashboard
+            </Link>
+          </Button>
+        )}
         {status === "authenticated" ? (
           <UserDropdown session={session} />
         ) : (

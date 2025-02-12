@@ -67,7 +67,7 @@ function DialogFormComponent() {
 
       toast.success("New form created");
 
-      router.push(`/view/${formId}`);
+      router.push(`/builder/${formId}`);
     } catch (error) {
       console.error("Error creating form:", error);
       toast.error("Error creating form");
