@@ -36,21 +36,24 @@ function FormBuilder() {
     fetchFormDetails();
   }, []);
 
-  if (loading) return <div><Loader2 className=" animate-spin"/></div>;
+  if (loading)
+    return (
+      <div>
+        <Loader2 className=" animate-spin" />
+      </div>
+    );
 
   return (
     <div>
-      {/* <div className=" flex justify-between items-center">
+      <div className=" flex justify-between items-center">
         <h4>{form?.title}</h4>
         <div className=" flex justify-center items-center gap-2">
           <PreviewButton />
           <SaveButton />
           <PublishButton />
         </div>
-      </div> */}
-      <div>
-        <Builder />
       </div>
+      <Builder />
     </div>
   );
 }

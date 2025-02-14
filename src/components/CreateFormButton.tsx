@@ -30,7 +30,7 @@ import { useRouter } from "next/navigation";
 function CreateFormButton() {
   return (
     <Dialog>
-      <DialogTrigger className="group flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 hover:border-slate-400 transition-colors md:h-48 h-32 w-full">
+      <DialogTrigger className="group flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 hover:border-slate-400 transition-colors md:h-40 h-28 w-full">
         <PlusCircle className="h-8 w-8 text-slate-500 group-hover:text-slate-600" />
         <p className="mt-2 font-medium text-slate-400 group-hover:text-slate-500">
           Create new form

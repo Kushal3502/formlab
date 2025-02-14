@@ -33,10 +33,10 @@ function Dashboard() {
   return (
     <div>
       <div>
-        <h3 className=" md:text-3xl text-2xl font-semibold my-4">
-          Get Started
-        </h3>
-        <CreateFormButton />
+        <h3 className="md:text-3xl text-2xl font-semibold my-4">Get Started</h3>
+        <div className=" grid md:grid-cols-4 ">
+          <CreateFormButton />
+        </div>
       </div>
       <Separator className=" my-6" />
       <div>
