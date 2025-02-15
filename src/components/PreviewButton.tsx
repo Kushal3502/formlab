@@ -1,23 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
-import { Button } from "./ui/button";
-import { Eye } from "lucide-react";
-import { useFieldsContext } from "@/context/fieldContext";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogTitle
 } from "@/components/ui/dialog";
+import { useFieldsContext } from "@/context/fieldContext";
+import { Eye } from "lucide-react";
+import { useState } from "react";
+import { Button } from "./ui/button";
 
 function PreviewButton() {
   const { fields } = useFieldsContext();
 
-console.log(fields);
-
+  console.log(fields);
 
   const [open, setOpen] = useState(false);
 
@@ -30,10 +28,13 @@ console.log(fields);
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogTitle>{}</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              {fields.map((item) => (
+                <div key={item.id} className=" my-4">
+                  {item.component}
+                </div>
+              ))}
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

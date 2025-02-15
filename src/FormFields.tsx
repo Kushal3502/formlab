@@ -1,25 +1,48 @@
 import { Input } from "./components/ui/input";
+import { Label } from "./components/ui/label";
 import { Textarea } from "./components/ui/textarea";
 
 export const formFields = [
   {
     value: "Heading",
-    component: (label: string) => <h2 className="text-lg font-bold">{label}</h2>,
+    component: (label: string) => (
+      <h2 className="text-lg font-bold">{label}</h2>
+    ),
   },
   {
     value: "Text Input",
-    component: () => <Input type="text" />,
+    component: (label?: string, placeholder?: string) => (
+      <div>
+        <Label className="mb-4">{label || ""}</Label>
+        <Input type="text" placeholder={placeholder || ""} />
+      </div>
+    ),
   },
   {
     value: "Number Input",
-    component: () => <Input type="number" />,
+    component: (label: string, placeholder: string) => (
+      <div>
+        <Label className="mb-4">{label || ""}</Label>
+        <Input type="number" placeholder={placeholder || ""} />
+      </div>
+    ),
   },
   {
     value: "Email Input",
-    component: () => <Input type="email" />,
+    component: (label?: string, placeholder?: string) => (
+      <div>
+        <Label className="mb-4">{label || ""}</Label>
+        <Input type="email" placeholder={placeholder || ""} />
+      </div>
+    ),
   },
   {
     value: "Textarea",
-    component: () => <Textarea rows={5} />,
+    component: (label?: string, placeholder?: string) => (
+      <div>
+        <Label className="mb-4">{label || ""}</Label>
+        <Textarea rows={5} placeholder={placeholder || ""} />
+      </div>
+    ),
   },
 ];

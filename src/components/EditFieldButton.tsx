@@ -55,13 +55,9 @@ function EditFieldButton({ field }: EditFieldButtonProps) {
         placeholder: selectedComponent !== "Heading" ? placeholder : "",
         required: selectedComponent !== "Heading" ? isRequired : false,
         type: selectedComponent,
-        component:
-          selectedComponent === "Heading"
-            ? selectedField.component(fieldLabel)
-            : selectedField.component,
+        component: selectedField.component(fieldLabel,placeholder),
       };
 
-      // @ts-ignore
       editField(field.id, updatedField);
       setOpen(false);
     }

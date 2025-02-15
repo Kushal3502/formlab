@@ -50,13 +50,9 @@ function AddFieldButton() {
         placeholder: selectedComponent !== "Heading" ? placeholder : "",
         required: selectedComponent !== "Heading" ? isRequired : false,
         type: selectedComponent,
-        component:
-          selectedComponent === "Heading"
-            ? selectedField.component(fieldLabel)
-            : selectedField.component,
+        component: selectedField.component(fieldLabel,placeholder),
       };
 
-      // @ts-ignore
       addField(newField);
       setSelectedComponent("");
       setFieldLabel("");
