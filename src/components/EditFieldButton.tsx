@@ -1,14 +1,17 @@
 "use client";
 
-import { formFields } from "@/FormFields";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 import {
   Select,
   SelectContent,
@@ -16,27 +19,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useFieldsContext } from "@/context/fieldContext";
-import { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { formFields } from "@/FormFields";
 import { Switch } from "./ui/switch";
+import { Field, useFieldsContext } from "@/context/fieldContext";
+import { PencilLine } from "lucide-react";
 
-function AddFieldButton() {
-  const { addField } = useFieldsContext();
+interface EditFieldButtonProps {
+  field: Field;
+}
 
+function EditFieldButton({ field }: EditFieldButtonProps) {
+  const { editField } = useFieldsContext();
   const [open, setOpen] = useState(false);
-  const [selectedComponent, setSelectedComponent] = useState("");
-  const [fieldLabel, setFieldLabel] = useState("");
-  const [placeholder, setPlaceholder] = useState("");
-  const [isRequired, setIsRequired] = useState(false);
+
+  const [selectedComponent, setSelectedComponent] = useState(field.type || "");
+  const [fieldLabel, setFieldLabel] = useState(field.label || "");
+  const [placeholder, setPlaceholder] = useState(field.placeholder || "");
+  const [isRequired, setIsRequired] = useState(field.required || false);
 
   function handleComponent(value: string) {
     setSelectedComponent(value);
   }
 
-  function handleAddField() {
+  function handleEditField() {
     if (selectedComponent && fieldLabel) {
       const selectedField = formFields.find(
         (field) => field.value === selectedComponent
@@ -44,8 +49,8 @@ function AddFieldButton() {
 
       if (!selectedField) return;
 
-      const newField = {
-        id: Date.now().toString(),
+      const updatedField = {
+        ...field,
         label: fieldLabel,
         placeholder: selectedComponent !== "Heading" ? placeholder : "",
         required: selectedComponent !== "Heading" ? isRequired : false,
@@ -57,33 +62,24 @@ function AddFieldButton() {
       };
 
       // @ts-ignore
-      addField(newField);
-      setSelectedComponent("");
-      setFieldLabel("");
-      setPlaceholder("");
-      setIsRequired(false);
+      editField(field.id, updatedField);
       setOpen(false);
     }
   }
 
   return (
-    <div className="w-full max-w-md mx-auto my-4">
-      <Button
-        size="sm"
-        className="w-full font-medium py-2 rounded-lg shadow-md transition-all duration-200"
-        onClick={() => setOpen(true)}
-      >
-        Add Field
+    <div>
+      <Button size="sm" variant={"ghost"} onClick={() => setOpen(true)}>
+        <PencilLine />
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-[425px] rounded-xl shadow-lg">
           <DialogHeader className="space-y-3">
             <DialogTitle className="text-2xl font-bold">
-              Add Form Field
+              Edit Form Field
             </DialogTitle>
             <DialogDescription>
               <div className="space-y-6 pt-4">
-                {/* Field Type Selector */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Field Type</Label>
                   <Select
@@ -102,8 +98,6 @@ function AddFieldButton() {
                     </SelectContent>
                   </Select>
                 </div>
-
-                {/* Field Label */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Field Label</Label>
                   <Input
@@ -113,8 +107,6 @@ function AddFieldButton() {
                     onChange={(e) => setFieldLabel(e.target.value)}
                   />
                 </div>
-
-                {/* Placeholder - Hidden for Heading */}
                 {selectedComponent !== "Heading" && (
                   <div className="space-y-2">
                     <Label className="text-sm font-medium">Placeholder</Label>
@@ -126,11 +118,11 @@ function AddFieldButton() {
                     />
                   </div>
                 )}
-
-                {/* Required Toggle - Hidden for Heading */}
                 {selectedComponent !== "Heading" && (
                   <div className="flex items-center justify-between">
-                    <Label className="text-sm font-medium">Required</Label>
+                    <Label className="text-sm font-medium text-gray-700">
+                      Required
+                    </Label>
                     <Switch
                       checked={isRequired}
                       onCheckedChange={setIsRequired}
@@ -142,11 +134,11 @@ function AddFieldButton() {
           </DialogHeader>
           <DialogFooter className="mt-6">
             <Button
-              onClick={handleAddField}
+              onClick={handleEditField}
               disabled={!selectedComponent || !fieldLabel}
               className="w-full"
             >
-              Add Field
+              Save Changes
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -155,4 +147,4 @@ function AddFieldButton() {
   );
 }
 
-export default AddFieldButton;
+export default EditFieldButton;
