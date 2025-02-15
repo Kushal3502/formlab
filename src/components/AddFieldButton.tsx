@@ -50,7 +50,7 @@ function AddFieldButton() {
         placeholder: selectedComponent !== "Heading" ? placeholder : "",
         required: selectedComponent !== "Heading" ? isRequired : false,
         type: selectedComponent,
-        component: selectedField.component(fieldLabel,placeholder),
+        component: selectedField.component(fieldLabel, placeholder),
       };
 
       addField(newField);
@@ -111,28 +111,30 @@ function AddFieldButton() {
                 </div>
 
                 {/* Placeholder - Hidden for Heading */}
-                {selectedComponent !== "Heading" && (
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">Placeholder</Label>
-                    <Input
-                      type="text"
-                      placeholder="Enter placeholder"
-                      value={placeholder}
-                      onChange={(e) => setPlaceholder(e.target.value)}
-                    />
-                  </div>
-                )}
+                {selectedComponent !== "Heading" &&
+                  selectedComponent !== "Description" && (
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium">Placeholder</Label>
+                      <Input
+                        type="text"
+                        placeholder="Enter placeholder"
+                        value={placeholder}
+                        onChange={(e) => setPlaceholder(e.target.value)}
+                      />
+                    </div>
+                  )}
 
                 {/* Required Toggle - Hidden for Heading */}
-                {selectedComponent !== "Heading" && (
-                  <div className="flex items-center justify-between">
-                    <Label className="text-sm font-medium">Required</Label>
-                    <Switch
-                      checked={isRequired}
-                      onCheckedChange={setIsRequired}
-                    />
-                  </div>
-                )}
+                {selectedComponent !== "Heading" &&
+                  selectedComponent !== "Description" && (
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm font-medium">Required</Label>
+                      <Switch
+                        checked={isRequired}
+                        onCheckedChange={setIsRequired}
+                      />
+                    </div>
+                  )}
               </div>
             </DialogDescription>
           </DialogHeader>

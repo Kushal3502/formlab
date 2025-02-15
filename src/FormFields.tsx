@@ -10,6 +10,12 @@ export const formFields = [
     ),
   },
   {
+    value: "Description",
+    component: (text: string) => (
+      <p className="text-sm">{text}</p>
+    ),
+  },
+  {
     value: "Text Input",
     component: (label?: string, placeholder?: string) => (
       <div>
@@ -33,6 +39,15 @@ export const formFields = [
       <div>
         <Label className="mb-4">{label || ""}</Label>
         <Input type="email" placeholder={placeholder || ""} />
+      </div>
+    ),
+  },
+  {
+    value: "Date Input",
+    component: (label?: string, placeholder?: string) => (
+      <div>
+        <Label className="mb-4">{label || ""}</Label>
+        <Input type="date" placeholder={placeholder || ""} />
       </div>
     ),
   },

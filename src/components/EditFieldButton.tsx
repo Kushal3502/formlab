@@ -103,7 +103,8 @@ function EditFieldButton({ field }: EditFieldButtonProps) {
                     onChange={(e) => setFieldLabel(e.target.value)}
                   />
                 </div>
-                {selectedComponent !== "Heading" && (
+                {selectedComponent !== "Heading" &&
+                  selectedComponent !== "Description" && (
                   <div className="space-y-2">
                     <Label className="text-sm font-medium">Placeholder</Label>
                     <Input
@@ -114,7 +115,8 @@ function EditFieldButton({ field }: EditFieldButtonProps) {
                     />
                   </div>
                 )}
-                {selectedComponent !== "Heading" && (
+                {selectedComponent !== "Heading" &&
+                  selectedComponent !== "Description" && (
                   <div className="flex items-center justify-between">
                     <Label className="text-sm font-medium text-gray-700">
                       Required

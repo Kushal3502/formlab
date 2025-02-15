@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { useFieldsContext } from "@/context/fieldContext";
 import { Eye } from "lucide-react";
@@ -25,10 +25,10 @@ function PreviewButton() {
         <Eye />
         Preview
       </Button>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+      <Dialog open={open} onOpenChange={setOpen} >
+        <DialogContent className=" max-h-[70vh] overflow-auto">
           <DialogHeader>
-            <DialogTitle>{}</DialogTitle>
+            <DialogTitle>Form Preview</DialogTitle>
             <DialogDescription>
               {fields.map((item) => (
                 <div key={item.id} className=" my-4">
