@@ -5,7 +5,13 @@ export async function middleware(request: NextRequest) {
   const user = await auth();
   const url = request.nextUrl;
 
-  if (!user && url.pathname.startsWith("/dashboard")) {
+  if (
+    !user &&
+    (url.pathname.startsWith("/dashboard") ||
+      url.pathname.startsWith("/builder") ||
+      url.pathname.startsWith("/form") ||
+      url.pathname.startsWith("/view"))
+  ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 }

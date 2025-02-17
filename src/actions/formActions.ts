@@ -28,12 +28,6 @@ export async function getForms() {
 
 export async function getFormById(id: string) {
   try {
-    const user = await auth();
-
-    if (!user) {
-      throw new Error("Unauthenticated");
-    }
-
     const form = await prisma.form.findFirst({
       where: { id },
     });
