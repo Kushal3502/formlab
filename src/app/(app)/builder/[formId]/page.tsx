@@ -4,6 +4,7 @@ import Builder from "@/components/Builder";
 import PreviewButton from "@/components/PreviewButton";
 import PublishButton from "@/components/PublishButton";
 import SaveButton from "@/components/SaveButton";
+import { useFieldsContext } from "@/context/fieldContext";
 import { useFormContext } from "@/context/formContext";
 import { Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -11,19 +12,27 @@ import { useEffect } from "react";
 
 function FormBuilder() {
   const { formId } = useParams();
-
   const { formData, fetchFormData, loading } = useFormContext();
-
-  console.log(formData);
+  const { setFields } = useFieldsContext();
 
   useEffect(() => {
-    fetchFormData(formId as string);
-  }, []);
+    const fetchForm = async () => {
+      const response = await fetchFormData(formId as string);
+      console.log(response);
+
+      if (response) {
+        const parsedFields = response.fields;
+
+        setFields(parsedFields);
+      }
+    };
+    fetchForm();
+  }, [formId]);
 
   if (loading)
     return (
       <div>
-        <Loader2 className=" animate-spin" />
+        <Loader2 className="animate-spin" />
       </div>
     );
 
@@ -33,7 +42,7 @@ function FormBuilder() {
         <h4>{formData?.title}</h4>
         <div className=" flex justify-center items-center gap-2">
           <PreviewButton />
-          <SaveButton />
+          <SaveButton formId={formId as string} />
           <PublishButton />
         </div>
       </div>

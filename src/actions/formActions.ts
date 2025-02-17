@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
+import { Field } from "@/context/fieldContext";
 import { prisma } from "@/lib/prisma";
 import { formSchema, formSchemaType } from "@/schema/form";
 
@@ -34,10 +35,12 @@ export async function getFormById(id: string) {
     }
 
     const form = await prisma.form.findFirst({
-      where: {
-        id,
-      },
+      where: { id },
     });
+
+    if (form) {
+      form.fields = JSON.parse(form.fields);
+    }
 
     return form;
   } catch (error) {
@@ -45,6 +48,7 @@ export async function getFormById(id: string) {
     throw new Error("Error fetching form");
   }
 }
+
 
 export async function CreateForm(data: formSchemaType) {
   try {
@@ -76,3 +80,26 @@ export async function CreateForm(data: formSchemaType) {
     throw new Error("Error creating form");
   }
 }
+
+export async function addFormData(id: string, fields: Field[]) {
+  try {
+    const user = await auth();
+    
+    if (!user) {
+      throw new Error("Unauthenticated");
+    }
+
+    const form = await prisma.form.update({
+      where: { id },
+      data: {
+        fields: JSON.stringify(fields),
+      },
+    });
+
+    return form;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error adding form");
+  }
+}
+

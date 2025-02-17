@@ -6,7 +6,7 @@ import { createContext, useContext, useState } from "react";
 
 interface FormContextType {
   formData: Form | null;
-  fetchFormData: (formId: string) => Promise<void>;
+  fetchFormData: (formId: string) => Promise<any>;
   loading: boolean;
 }
 
@@ -21,6 +21,7 @@ export const FormProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true);
       const response = await getFormById(formId);
       setFormData(response);
+      return response;
     } catch (error) {
       console.error("Error fetching form data:", error);
     } finally {

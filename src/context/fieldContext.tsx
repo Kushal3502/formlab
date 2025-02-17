@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, ReactElement, createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, JSX } from "react";
 
 export interface Field {
   id: string;
@@ -13,6 +13,7 @@ export interface Field {
 
 interface FieldsContextType {
   fields: Field[];
+  setFields: React.Dispatch<React.SetStateAction<Field[]>>;
   addField: (newField: Field) => void;
   removeField: (id: string) => void;
   editField: (id: string, updatedField: Field) => void;
@@ -39,7 +40,7 @@ export const FieldsProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <FieldsContext.Provider
-      value={{ fields, addField, removeField, editField }}
+      value={{ fields, setFields, addField, removeField, editField }}
     >
       {children}
     </FieldsContext.Provider>
@@ -53,5 +54,3 @@ export const useFieldsContext = () => {
   }
   return context;
 };
-
-export default FieldsContext;
