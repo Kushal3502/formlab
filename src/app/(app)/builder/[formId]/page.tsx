@@ -43,7 +43,7 @@ function FormBuilder() {
         <div className=" flex justify-center items-center gap-2">
           <PreviewButton />
           <SaveButton formId={formId as string} />
-          <PublishButton />
+          <PublishButton formId={formId as string} />
         </div>
       </div>
       <Builder />

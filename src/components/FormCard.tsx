@@ -34,7 +34,7 @@ function FormCard({ data }: { data: Form }) {
             </Badge>
           )}
           <span className="text-xs text-gray-500">
-            Created: {data.createdAt.toLocaleDateString()}
+            Updated: {data.updatedAt.toLocaleDateString()}
           </span>
         </CardContent>
       </Card>

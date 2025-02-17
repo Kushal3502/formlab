@@ -49,7 +49,6 @@ export async function getFormById(id: string) {
   }
 }
 
-
 export async function CreateForm(data: formSchemaType) {
   try {
     const isValid = formSchema.safeParse(data);
@@ -84,7 +83,7 @@ export async function CreateForm(data: formSchemaType) {
 export async function addFormData(id: string, fields: Field[]) {
   try {
     const user = await auth();
-    
+
     if (!user) {
       throw new Error("Unauthenticated");
     }
@@ -103,3 +102,24 @@ export async function addFormData(id: string, fields: Field[]) {
   }
 }
 
+export async function publishForm(id: string) {
+  try {
+    const user = await auth();
+
+    if (!user) {
+      throw new Error("Unauthenticated");
+    }
+
+    const form = await prisma.form.update({
+      where: { id },
+      data: {
+        isPublished: true,
+      },
+    });
+
+    return form;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error publishing form");
+  }
+}
