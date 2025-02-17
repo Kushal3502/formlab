@@ -114,6 +114,7 @@ export async function publishForm(id: string) {
       where: { id },
       data: {
         isPublished: true,
+        shareLink: `http://localhost:3000/response/${id}`,
       },
     });
 
@@ -121,5 +122,48 @@ export async function publishForm(id: string) {
   } catch (error) {
     console.error(error);
     throw new Error("Error publishing form");
+  }
+}
+
+export async function getFormResponses(formId: string) {
+  try {
+    const user = await auth();
+    if (!user) throw new Error("Unauthenticated");
+
+    const responses = await prisma.response.findMany({
+      where: { formId },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return responses;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error fetching responses");
+  }
+}
+
+export async function submitResponse(formId: string, content: string) {
+  try {
+    const form = await prisma.form.findUnique({ where: { id: formId } });
+
+    if (!form) throw new Error("Form not found");
+    if (!form.isAccepting) throw new Error("Form is not accepting responses");
+
+    const response = await prisma.response.create({
+      data: {
+        formId,
+        content,
+      },
+    });
+
+    await prisma.form.update({
+      where: { id: formId },
+      data: { submissions: form.submissions + 1 },
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error submitting response");
   }
 }

@@ -5,58 +5,81 @@ import { Textarea } from "./components/ui/textarea";
 export const formFields = [
   {
     value: "Heading",
-    component: (label: string) => (
-      <h2 className="text-3xl font-bold">{label}</h2>
+    component: (label?: string) => (
+      <h2 className="md:text-3xl text-2xl font-bold">{label || ""}</h2>
     ),
   },
   {
     value: "Description",
-    component: (text: string) => (
-      <p className="text-sm">{text}</p>
-    ),
+    component: (text?: string) => <p className="text-sm">{text || ""}</p>,
   },
   {
     value: "Text Input",
-    component: (label?: string, placeholder?: string) => (
+    component: (
+      label?: string,
+      placeholder?: string,
+      value?: string,
+      onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    ) => (
       <div>
         <Label className="mb-4">{label || ""}</Label>
-        <Input type="text" placeholder={placeholder || ""} />
+        <Input type="text" placeholder={placeholder || ""} value={value} onChange={onChange} />
       </div>
     ),
   },
   {
     value: "Number Input",
-    component: (label: string, placeholder: string) => (
+    component: (
+      label?: string,
+      placeholder?: string,
+      value?: string,
+      onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    ) => (
       <div>
         <Label className="mb-4">{label || ""}</Label>
-        <Input type="number" placeholder={placeholder || ""} />
+        <Input type="number" placeholder={placeholder || ""} value={value} onChange={onChange} />
       </div>
     ),
   },
   {
     value: "Email Input",
-    component: (label?: string, placeholder?: string) => (
+    component: (
+      label?: string,
+      placeholder?: string,
+      value?: string,
+      onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    ) => (
       <div>
         <Label className="mb-4">{label || ""}</Label>
-        <Input type="email" placeholder={placeholder || ""} />
+        <Input type="email" placeholder={placeholder || ""} value={value} onChange={onChange} />
       </div>
     ),
   },
   {
     value: "Date Input",
-    component: (label?: string, placeholder?: string) => (
+    component: (
+      label?: string,
+      placeholder?: string,
+      value?: string,
+      onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    ) => (
       <div>
         <Label className="mb-4">{label || ""}</Label>
-        <Input type="date" placeholder={placeholder || ""} />
+        <Input type="date" placeholder={placeholder || ""} value={value} onChange={onChange} />
       </div>
     ),
   },
   {
     value: "Textarea",
-    component: (label?: string, placeholder?: string) => (
+    component: (
+      label?: string,
+      placeholder?: string,
+      value?: string,
+      onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+    ) => (
       <div>
         <Label className="mb-4">{label || ""}</Label>
-        <Textarea rows={5} placeholder={placeholder || ""} />
+        <Textarea rows={5} placeholder={placeholder || ""} value={value} onChange={onChange} />
       </div>
     ),
   },
