@@ -6,7 +6,7 @@ export const formFields = [
   {
     value: "Heading",
     component: (label: string) => (
-      <h2 className="text-lg font-bold">{label}</h2>
+      <h2 className="text-3xl font-bold">{label}</h2>
     ),
   },
   {
