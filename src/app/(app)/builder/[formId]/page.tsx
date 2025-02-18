@@ -7,14 +7,16 @@ import PublishButton from "@/components/PublishButton";
 import SaveButton from "@/components/SaveButton";
 import { useFieldsContext } from "@/context/fieldContext";
 import { useFormContext } from "@/context/formContext";
+import { Form } from "@prisma/client";
 import { Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function FormBuilder() {
   const { formId } = useParams();
-  const { formData, loading } = useFormContext();
+  const { loading } = useFormContext();
   const { setFields } = useFieldsContext();
+  const [formData, setFormData] = useState<Form>();
 
   useEffect(() => {
     const fetchForm = async () => {
@@ -22,6 +24,8 @@ function FormBuilder() {
       console.log(response);
 
       if (response) {
+        setFormData(response);
+
         const parsedFields = response.fields;
         // @ts-expect-error Parsed fields type mismatch with Field[]
         setFields(parsedFields);
