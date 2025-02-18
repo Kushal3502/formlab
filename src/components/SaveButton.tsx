@@ -14,9 +14,14 @@ function SaveButton({ formId }: { formId: string }) {
   async function handleSaveForm() {
     try {
       setLoading(true);
-      const response = await addFormData(formId, fields);
-      console.log("Form saved successfully:", response);
-      toast.success("Form saved!");
+
+      if (fields.length > 0) {
+        const response = await addFormData(formId, fields);
+        console.log("Form saved successfully:", response);
+        toast.success("Form saved!");
+      } else {
+        toast.error("Add some fields first");
+      }
     } catch (error) {
       console.error("Error saving form:", error);
       toast.error("Error saving form!");

@@ -1,5 +1,7 @@
 "use client";
 
+import { Label } from "./ui/label";
+
 interface PreviewProps {
   formFields: { id: string; label: string; component: React.ReactNode }[];
 }
@@ -10,9 +12,9 @@ function Preview({ formFields }: PreviewProps) {
       <div className="space-y-4">
         {formFields?.map((field) => (
           <div key={field.id}>
-            <label className="block text-sm font-medium mb-1">
+            <Label className="block text-sm font-medium mb-1">
               {field.label}
-            </label>
+            </Label>
             {field.component}
           </div>
         ))}

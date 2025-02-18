@@ -1,8 +1,9 @@
+import LoginButton from "@/components/LoginButton";
+import { WordRotate } from "@/components/magicui/word-rotate";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, BarChart3, CheckCircle, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Share2, BarChart3 } from "lucide-react";
-import LoginButton from "@/components/LoginButton";
 
 export default function LandingPage() {
   return (
@@ -13,13 +14,12 @@ export default function LandingPage() {
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-8">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  <span className="text-rose-600 ">C</span>
-                  reate, <span className="text-rose-600 ">S</span>
-                  hare, <span className="text-rose-600 ">A</span>
-                  nalyze <br />
+                  <WordRotate
+                    className=" font-bold text-rose-500"
+                    words={["Create", "Analyze", "Share"]}
+                  />
                   <span className="">Forms with Ease</span>
                 </h1>
-
                 <p className="mx-auto max-w-[700px] md:text-xl">
                   Build powerful forms, gather responses, and gain insights all
                   in one place. Login with Google and start creating in minutes.

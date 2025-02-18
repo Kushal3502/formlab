@@ -61,7 +61,7 @@ function PublishForm() {
           <p className="text-sm max-w-[calc(100%-48px)] break-words overflow-hidden">
             {link}
           </p>
-          <Button size="icon" onClick={handleCopy}>
+          <Button size="sm" onClick={handleCopy}>
             {copied ? (
               <Check className="w-4 h-4" />
             ) : (

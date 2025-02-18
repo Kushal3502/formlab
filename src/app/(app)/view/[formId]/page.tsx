@@ -112,21 +112,28 @@ function FormDetails() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-8">
-      <div className=" p-8 shadow-md rounded-lg border">
-        <h1 className="text-3xl font-bold mb-6 tracking-tight">Form Details</h1>
-        <div className="grid md:grid-cols-2 gap-8">
+    <div className="w-full p-4 sm:p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 shadow-md rounded-lg border">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 tracking-tight">
+          Form Details
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           <div className="space-y-4">
-            <p className="flex flex-col">
-              <span className="text-sm font-medium ">Title</span>
-              <span className="">{formData.title}</span>
+            <p className="flex flex-col gap-1">
+              <strong className="text-base sm:text-lg">Title</strong>
+              <span className="text-sm sm:text-base">{formData.title}</span>
             </p>
-            <p className="flex flex-col">
-              <span className="text-sm font-medium ">Description</span>
-              <span className="">{formData.description}</span>
+            <p className="flex flex-col gap-1">
+              <strong className="text-base sm:text-lg">Description</strong>
+              <span className="text-sm sm:text-base">
+                {formData.description}
+              </span>
             </p>
             <div className="flex items-center space-x-3 pt-2">
-              <Label htmlFor="accepting" className="font-medium">
+              <Label
+                htmlFor="accepting"
+                className="font-medium text-sm sm:text-base"
+              >
                 Accepting responses
               </Label>
               <Switch
@@ -136,32 +143,36 @@ function FormDetails() {
               />
             </div>
           </div>
-          <div className=" p-6 rounded-lg">
-            <h3 className="font-semibold mb-3">Share Form</h3>
-            <div className="flex items-center justify-between p-3 rounded-lg  border">
-              <p className="text-sm max-w-[calc(100%-48px)] break-words overflow-hidden">
+          <div className="p-4 sm:p-6 rounded-lg">
+            <h3 className="font-semibold mb-3 text-base sm:text-lg">
+              Share Form
+            </h3>
+            <div className="flex items-center justify-between p-2 sm:p-3 rounded-lg border">
+              <p className="text-xs sm:text-sm max-w-[calc(100%-60px)] break-words overflow-hidden">
                 {formData.shareLink}
               </p>
-              <Button size="icon" onClick={handleCopy}>
+              <Button size="sm" className="ml-2" onClick={handleCopy}>
                 {copied ? (
-                  <Check className="w-4 h-4" />
+                  <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                 ) : (
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                 )}
               </Button>
             </div>
           </div>
         </div>
-        <div className="mt-10">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-lg">
+        <div className="mt-8 sm:mt-10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
+            <h3 className="font-semibold text-base sm:text-lg">
               Responses: {formData.submissions}
             </h3>
             <div className="flex items-center gap-2">
-              <Label className="text-sm">Refresh responses</Label>
+              <Label className="text-xs sm:text-sm">Refresh responses</Label>
               <Button size="sm" onClick={fetchResponses}>
                 <RefreshCcw
-                  className={`w-4 h-4 ${refreshing ? "animate-spin" : ""}`}
+                  className={`w-3 h-3 sm:w-4 sm:h-4 ${
+                    refreshing ? "animate-spin" : ""
+                  }`}
                 />
               </Button>
             </div>
@@ -171,7 +182,10 @@ function FormDetails() {
               <TableHeader>
                 <TableRow>
                   {fields.map((field) => (
-                    <TableHead key={field.id} className="font-medium">
+                    <TableHead
+                      key={field.id}
+                      className="font-medium text-xs sm:text-sm whitespace-nowrap"
+                    >
                       {field.label}
                     </TableHead>
                   ))}
@@ -186,7 +200,7 @@ function FormDetails() {
                         {fields.map((field) => (
                           <TableCell
                             key={field.id}
-                            className="max-w-[200px] break-words whitespace-pre-wrap"
+                            className="text-xs sm:text-sm max-w-[150px] sm:max-w-[200px] break-words whitespace-pre-wrap"
                           >
                             {parsedContent[field.id] || "N/A"}
                           </TableCell>
@@ -196,7 +210,10 @@ function FormDetails() {
                   })
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={fields.length} className="text-center ">
+                    <TableCell
+                      colSpan={fields.length}
+                      className="text-center text-sm"
+                    >
                       No responses yet.
                     </TableCell>
                   </TableRow>
