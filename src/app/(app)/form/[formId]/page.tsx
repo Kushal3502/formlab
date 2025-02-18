@@ -4,7 +4,7 @@ import { formFields } from "@/FormFields";
 import { Button } from "@/components/ui/button";
 import { useFieldsContext } from "@/context/fieldContext";
 import { useFormContext } from "@/context/formContext";
-import { Copy, Loader2 } from "lucide-react";
+import { Check, Copy, Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -13,6 +13,7 @@ function PublishForm() {
   const { fetchFormData, loading } = useFormContext();
   const { fields, setFields } = useFieldsContext();
   const [link, setLink] = useState("");
+  const [copied, setCopied] = useState(false);
 
   function getComponent(type: string, label?: string, placeholder?: string) {
     const field = formFields.find((field) => field.value === type);
@@ -20,6 +21,14 @@ function PublishForm() {
       return field.component(label as string, placeholder as string);
     }
     return null;
+  }
+
+  function handleCopy() {
+    if (link) {
+      navigator.clipboard.writeText(link);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   }
 
   useEffect(() => {
@@ -48,18 +57,16 @@ function PublishForm() {
         <h3 className="text-2xl font-semibold tracking-tight">
           Form Published Successfully
         </h3>
-        <div className="backdrop-blur-sm border rounded-lg p-4 flex items-center justify-between">
-          <p className="text-sm md:text-base break-all flex-1">
-            Share Link Here - {link}
+        <div className="flex items-center justify-between p-3 rounded-lg  border">
+          <p className="text-sm max-w-[calc(100%-48px)] break-words overflow-hidden">
+            {link}
           </p>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigator.clipboard.writeText(link)}
-            className="ml-2 hover:bg-gray-100"
-            title="Copy to clipboard"
-          >
-            <Copy className="h-4 w-4" />
+          <Button size="icon" onClick={handleCopy}>
+            {copied ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <Copy className="w-4 h-4" />
+            )}
           </Button>
         </div>
       </div>

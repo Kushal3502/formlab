@@ -161,3 +161,23 @@ export async function submitResponse(formId: string, content: string) {
     throw new Error("Error submitting response");
   }
 }
+
+export async function toggleAcceptState(id: string, currentState: boolean) {
+  try {
+    const user = await auth();
+
+    if (!user) {
+      throw new Error("Unauthenticated");
+    }
+
+    await prisma.form.update({
+      where: { id },
+      data: {
+        isAccepting: !currentState,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error toogle accept state");
+  }
+}
