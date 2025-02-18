@@ -86,7 +86,9 @@ function FormDetails() {
       if (formData)
         await toggleAcceptState(formId as string, formData.isAccepting);
       setAcceptResponses(!acceptResponses);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {

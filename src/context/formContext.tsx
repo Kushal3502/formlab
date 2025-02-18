@@ -6,6 +6,7 @@ import { createContext, useContext, useState } from "react";
 
 interface FormContextType {
   formData: Form | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fetchFormData: (formId: string) => Promise<any>;
   loading: boolean;
 }
@@ -16,7 +17,8 @@ export const FormProvider = ({ children }: { children: React.ReactNode }) => {
   const [formData, setFormData] = useState<Form | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchFormData = async (formId: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const fetchFormData = async (formId: string): Promise<any> => {
     try {
       setLoading(true);
       const response = await getFormById(formId);

@@ -38,14 +38,15 @@ function FormSubmission() {
 
     if (value) {
       setErrors((prev) => {
-        const { [fieldId]: removedError, ...rest } = prev;
+        const rest = { ...prev };
+        delete rest[fieldId];
         return rest;
       });
     }
   }
 
   function validateForm() {
-    let formErrors: { [key: string]: string } = {};
+    const formErrors: { [key: string]: string } = {};
     fields.forEach((field) => {
       if (field.required && !responses[field.id]) {
         formErrors[field.id] = `${field.label} is required.`;
@@ -55,7 +56,7 @@ function FormSubmission() {
     return Object.keys(formErrors).length === 0;
   }
 
-  async function handleSubmit(e: any) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -145,6 +146,7 @@ function FormSubmission() {
               ))}
             <Button
               type="submit"
+              // @ts-expect-error Form event type mismatch between Button onClick and form submit handler
               onClick={(e) => handleSubmit(e)}
               className="w-full font-semibold py-3 rounded-xl shadow-lg transform hover:translate-y-[-2px] transition-all duration-200 mt-8"
               disabled={submitting}
