@@ -108,7 +108,7 @@ export async function publishForm(id: string) {
       where: { id },
       data: {
         isPublished: true,
-        shareLink: `http://localhost:3000/response/${id}`,
+        shareLink: `${String(process.env.NEXT_PUBLIC_APP_URL)}/response/${id}`,
       },
     });
 
