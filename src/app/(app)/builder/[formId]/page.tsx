@@ -41,6 +41,14 @@ function FormBuilder() {
       </div>
     );
 
+  if (!formData) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-lg font-semibold">No form found.</div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className=" flex justify-between items-center">

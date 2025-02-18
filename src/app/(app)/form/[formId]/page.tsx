@@ -1,19 +1,22 @@
 "use client";
 
 import { formFields } from "@/FormFields";
+import { getFormById } from "@/actions/formActions";
 import { Button } from "@/components/ui/button";
 import { useFieldsContext } from "@/context/fieldContext";
 import { useFormContext } from "@/context/formContext";
+import { Form } from "@prisma/client";
 import { Check, Copy, Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function PublishForm() {
   const { formId } = useParams();
-  const { fetchFormData, loading } = useFormContext();
+  const { loading } = useFormContext();
   const { fields, setFields } = useFieldsContext();
   const [link, setLink] = useState("");
   const [copied, setCopied] = useState(false);
+  const [formData, setFormData] = useState<Form>();
 
   function getComponent(type: string, label?: string, placeholder?: string) {
     const field = formFields.find((field) => field.value === type);
@@ -33,9 +36,12 @@ function PublishForm() {
 
   useEffect(() => {
     const fetchForm = async () => {
-      const response = await fetchFormData(formId as string);
+      const response = await getFormById(formId as string);
       if (response) {
+        setFormData(response);
+
         const parsedFields = response.fields;
+        // @ts-expect-error Parsed fields type mismatch with Field[]
         setFields(parsedFields);
         setLink(response.shareLink);
       }
@@ -47,6 +53,14 @@ function PublishForm() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="animate-spin w-8 h-8" />
+      </div>
+    );
+  }
+
+  if (!formData) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-lg font-semibold">No form found.</div>
       </div>
     );
   }
