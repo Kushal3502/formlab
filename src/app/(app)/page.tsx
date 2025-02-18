@@ -13,21 +13,11 @@ export default function LandingPage() {
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-8">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  <span className="text-rose-600 ">
-                    C
-                  </span>
-                  reate,{" "}
-                  <span className="text-rose-600 ">
-                    S
-                  </span>
-                  hare,{" "}
-                  <span className="text-rose-600 ">
-                    A
-                  </span>
+                  <span className="text-rose-600 ">C</span>
+                  reate, <span className="text-rose-600 ">S</span>
+                  hare, <span className="text-rose-600 ">A</span>
                   nalyze <br />
-                  <span className="">
-                    Forms with Ease
-                  </span>
+                  <span className="">Forms with Ease</span>
                 </h1>
 
                 <p className="mx-auto max-w-[700px] md:text-xl">
@@ -110,22 +100,22 @@ export default function LandingPage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <div className="flex flex-col p-6 rounded-lg border bg-rose-100 dark:bg-zinc-800">
                 <p className="mb-4">
-                  "FormLab has revolutionized how we collect data. It's so easy
-                  to use!"
+                  &quot;FormLab has revolutionized how we collect data.
+                  It&apos;s so easy to use!&quot;
                 </p>
                 <p className="font-semibold">- Sarah K., Marketing Manager</p>
               </div>
               <div className="flex flex-col p-6 rounded-lg border bg-rose-100 dark:bg-zinc-800">
                 <p className="mb-4">
-                  "The analytics feature is a game-changer. We can make
-                  decisions faster than ever."
+                  &quot;The analytics feature is a game-changer. We can make
+                  decisions faster than ever.&quot;
                 </p>
                 <p className="font-semibold">- John D., Research Analyst</p>
               </div>
               <div className="flex flex-col p-6 rounded-lg border bg-rose-100 dark:bg-zinc-800">
                 <p className="mb-4">
-                  "Google login makes it so convenient. I'm creating forms in no
-                  time!"
+                  &quot;Google login makes it so convenient. I&apos;m creating
+                  forms in no time!&quot;
                 </p>
                 <p className="font-semibold">- Emily R., Event Coordinator</p>
               </div>
