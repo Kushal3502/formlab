@@ -1,5 +1,6 @@
 "use client";
 
+import { getFormById } from "@/actions/formActions";
 import Builder from "@/components/Builder";
 import PreviewButton from "@/components/PreviewButton";
 import PublishButton from "@/components/PublishButton";
@@ -12,17 +13,17 @@ import { useEffect } from "react";
 
 function FormBuilder() {
   const { formId } = useParams();
-  const { formData, fetchFormData, loading } = useFormContext();
+  const { formData, loading } = useFormContext();
   const { setFields } = useFieldsContext();
 
   useEffect(() => {
     const fetchForm = async () => {
-      const response = await fetchFormData(formId as string);
+      const response = await getFormById(formId as string);
       console.log(response);
 
       if (response) {
         const parsedFields = response.fields;
-
+        // @ts-expect-error Parsed fields type mismatch with Field[]
         setFields(parsedFields);
       }
     };
