@@ -1,14 +1,31 @@
-import React from "react";
-import { Button } from "./ui/button";
-import { handleSignIn } from "@/actions/authActions";
+"use client";
 
-function LoginButton() {
+import { handleSignIn } from "@/actions/authActions";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { ReactNode } from "react";
+import { Button } from "./ui/button";
+
+interface LoginButtonProps {
+  children?: ReactNode;
+}
+
+function LoginButton({ children = "Get Started" }: LoginButtonProps) {
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  async function signIn() {
+    if (session) {
+      router.push("/dashboard");
+    } else {
+      await handleSignIn();
+    }
+  }
+
   return (
-    <form action={handleSignIn}>
-      <Button size={"sm"} type="submit">
-        Get started
-      </Button>
-    </form>
+    <Button onClick={signIn}>
+      {children}
+    </Button>
   );
 }
 

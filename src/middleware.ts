@@ -5,6 +5,9 @@ export async function middleware(request: NextRequest) {
   const user = await auth();
   const url = request.nextUrl;
 
+  if (user && url.pathname.startsWith("/api/auth"))
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+
   if (
     !user &&
     (url.pathname.startsWith("/dashboard") ||
