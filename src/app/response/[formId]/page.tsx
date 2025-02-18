@@ -1,7 +1,7 @@
 "use client";
 
 import { formFields } from "@/FormFields";
-import { submitResponse } from "@/actions/formActions";
+import { getFormDataById, submitResponse } from "@/actions/formActions";
 import { Button } from "@/components/ui/button";
 import { Field, useFieldsContext } from "@/context/fieldContext";
 import { useFormContext } from "@/context/formContext";
@@ -14,7 +14,7 @@ import { toast } from "react-hot-toast";
 function FormSubmission() {
   const { formId } = useParams();
 
-  const { fetchFormData, loading } = useFormContext();
+  const { loading } = useFormContext();
   const { fields, setFields } = useFieldsContext();
   const [formData, setFormData] = useState<Form | null>();
   const [responses, setResponses] = useState<{ [key: string]: string }>({});
@@ -23,12 +23,13 @@ function FormSubmission() {
 
   async function fetchForm() {
     if (!formId) return;
-    const response = await fetchFormData(formId as string);
+    const response = await getFormDataById(formId as string);
     console.log(response);
 
     if (response) {
       setFormData(response);
       const parsedFields = response.fields;
+      // @ts-expect-error Parsed fields type mismatch with Field[]
       setFields(parsedFields);
     }
   }

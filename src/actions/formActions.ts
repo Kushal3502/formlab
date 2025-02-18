@@ -28,6 +28,29 @@ export async function getForms() {
 
 export async function getFormById(id: string) {
   try {
+    const user = await auth();
+
+    if (!user) {
+      throw new Error("Unauthenticated");
+    }
+
+    const form = await prisma.form.findFirst({
+      where: { id, ownerId: user.user?.id },
+    });
+
+    if (form) {
+      form.fields = JSON.parse(form.fields);
+    }
+
+    return form;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error fetching form");
+  }
+}
+
+export async function getFormDataById(id: string) {
+  try {
     const form = await prisma.form.findFirst({
       where: { id },
     });
